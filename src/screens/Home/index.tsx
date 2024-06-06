@@ -1,5 +1,5 @@
 import { FlatList } from "react-native"
-import { Plus } from "phosphor-react-native"
+import { ArrowUpRight, Plus } from "phosphor-react-native"
 
 import { 
   Container, 
@@ -8,15 +8,15 @@ import {
   Photo, 
   UserPicture, 
   Percent, 
-  ButtonIcon, 
-  Icon, 
   ListTitle, 
-  Date 
+  Date, 
+  IconWrapper
 } from "./styles"
 
 import logo from "../../assets/logo.png"
 
 import { Highlight } from "@components/Highlight"
+import { ButtonIcon } from "@components/ButtonIcon"
 import { Button } from "@components/Button"
 import { Meal } from "@components/Meal"
 
@@ -71,9 +71,11 @@ export function Home() {
           subtitle="of meals within the diet"
         />
 
-        <ButtonIcon>
-          <Icon />
-        </ButtonIcon>
+        <IconWrapper>
+          <ButtonIcon 
+            icon={ <ArrowUpRight /> } 
+          />
+        </IconWrapper>
       </Percent>
 
       <ListTitle>

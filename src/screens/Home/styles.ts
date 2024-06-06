@@ -1,7 +1,3 @@
-import { TouchableOpacity } from "react-native";
-
-import { ArrowUpRight, Plus } from "phosphor-react-native";
-
 import styled, { css } from "styled-components/native";
 
 export const Container = styled.View`
@@ -47,24 +43,12 @@ export const Percent = styled.View`
   background-color: ${({theme}) => theme.COLORS.GREEN_LIGHT};
 `
 
-export const ButtonIcon = styled(TouchableOpacity)`
-  width: 24px;
-  height: 24px;
+export const IconWrapper = styled.View`
   top: 12px;
   right: 12px;
-
+  
   position: absolute;
 `
-
-export const Icon = styled(ArrowUpRight).attrs(({theme}) => ({
-  size: 24,
-  color: theme.COLORS.GREEN_DARK
-}))``
-
-export const PlusIcon = styled(Plus).attrs(({theme}) => ({
-  size: 32,
-  color: 'red'
-}))
 
 export const ListTitle = styled.Text`
   margin-bottom: 10px;

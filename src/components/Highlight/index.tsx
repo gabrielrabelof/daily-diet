@@ -1,14 +1,17 @@
-import { Container, Subtitle, Title } from "./styles";
+import { TextTypeStyleProps, Container, Subtitle, Title } from "./styles";
 
 type Props = {
   title: string,
   subtitle: string
+  type?: TextTypeStyleProps
 }
 
-export function Highlight({ title, subtitle }: Props) {
+export function Highlight({ title, subtitle, type = 'LARGER' }: Props) {
   return (
     <Container>
-      <Title> 
+      <Title
+        type={type}
+      > 
         {title}
       </Title>
 
