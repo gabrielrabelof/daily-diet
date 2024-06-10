@@ -7,6 +7,7 @@ import theme from "src/theme"
 
 import { Home } from "@screens/Home"
 import { Statistics } from "@screens/Statistics"
+import { Creation } from "@screens/Creation"
 
 import { Loading } from "@components/Loading"
 
@@ -27,7 +28,7 @@ export default function App() {
         translucent
       />
       
-      <Statistics />
+      <Creation />
     </ThemeProvider>
   )
 }

@@ -14,6 +14,7 @@ export const Container = styled(View) <Props>`
   height:${({ halfWidth }) => (halfWidth ? '110px' : '90px')};
   border-radius: 8px;
   margin-top: 12px;
+  padding: 0 12px;
 
   align-items: center;
   justify-content: center;
