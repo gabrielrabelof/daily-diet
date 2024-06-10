@@ -7,10 +7,11 @@ import { ButtonTypeStyleProps, Container, IconWrapper, Title } from "./styles";
 type Props = {
   title: string,
   type?: ButtonTypeStyleProps
-  icon?: ReactNode
+  icon?: ReactNode,
+  halfWidth?: boolean
 }
 
-export function Button({ type = 'PRIMARY', icon, title }: Props) {
+export function Button({ type = 'PRIMARY', icon, title, halfWidth }: Props) {
   const { COLORS } = useTheme()
 
   const styledIcon = icon
@@ -24,6 +25,7 @@ export function Button({ type = 'PRIMARY', icon, title }: Props) {
     <Container 
       activeOpacity={0.7}
       type={type}
+      halfWidth={halfWidth}
     >
       {
         icon && (

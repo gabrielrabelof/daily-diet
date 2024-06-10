@@ -5,11 +5,12 @@ import styled, { css } from "styled-components/native";
 export type ButtonTypeStyleProps = 'PRIMARY' | 'SECONDARY'
 
 type Props = {
-  type: ButtonTypeStyleProps
+  type: ButtonTypeStyleProps,
+  halfWidth?: boolean
 }
 
 export const Container = styled(TouchableOpacity) <Props>`
-  width: 100%;
+  width: ${({halfWidth}) => (halfWidth ? '50%' : '100%')};
   height: 50px;
   border-radius: 6px;
   border: 1px solid;
