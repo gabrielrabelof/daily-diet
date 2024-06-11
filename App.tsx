@@ -29,7 +29,7 @@ export default function App() {
         translucent
       />
       
-      <Feedback type="POSITIVE" />
+      <Creation />
     </ThemeProvider>
   )
 }
