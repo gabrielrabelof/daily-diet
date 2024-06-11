@@ -9,6 +9,7 @@ import { Home } from "@screens/Home"
 import { Statistics } from "@screens/Statistics"
 import { Creation } from "@screens/Creation"
 import { Feedback } from "@screens/Feedback"
+import { Meal } from "@screens/Meal"
 
 import { Loading } from "@components/Loading"
 
@@ -29,7 +30,7 @@ export default function App() {
         translucent
       />
       
-      <Creation />
+      <Meal />
     </ThemeProvider>
   )
 }

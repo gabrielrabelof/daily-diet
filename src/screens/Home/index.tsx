@@ -18,7 +18,7 @@ import logo from "../../assets/logo.png"
 import { Highlight } from "@components/Highlight"
 import { ButtonIcon } from "@components/ButtonIcon"
 import { Button } from "@components/Button"
-import { Meal } from "@components/Meal"
+import { MealCard } from "@components/MealCard"
 
 export function Home() {
   const dailyMeals = [
@@ -95,7 +95,7 @@ export function Home() {
             <Date>{item.date}</Date>
             
             {item.meals.name.map((mealName, index) => (
-              <Meal 
+              <MealCard 
                 key={index} 
                 time={item.meals.time[index]}
                 name={mealName}

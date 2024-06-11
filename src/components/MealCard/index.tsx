@@ -6,7 +6,7 @@ type Props = {
   status?: boolean
 }
 
-export function Meal({ time, name, status = true }: Props) {
+export function MealCard({ time, name, status = true }: Props) {
   return (
     <Container activeOpacity={0.5}>
       <Time>
