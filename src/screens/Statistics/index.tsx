@@ -46,14 +46,14 @@ export function Statistics() {
               title="22"
               subtitle="Best sequence of meals within the diet"
               halfWidth
-              type="GREEN"
+              type="PRIMARY"
             />
 
             <Data 
               title="109"
               subtitle="Meals registered"
               halfWidth
-              type="RED"
+              type="SECONDARY"
             />
           </DataWrapper>               
         </ScrollView>

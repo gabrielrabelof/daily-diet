@@ -2,7 +2,7 @@ import { View } from "react-native";
 
 import styled from "styled-components/native";
 
-export type DataTypeStyleProps = 'STANDART' | 'GREEN' | 'RED'
+export type DataTypeStyleProps = 'DEFAULT' | 'PRIMARY' | 'SECONDARY'
 
 type Props = {
   halfWidth?: boolean
@@ -20,8 +20,8 @@ export const Container = styled(View) <Props>`
   justify-content: center;
 
   background-color: ${({theme, type}) => 
-    type === 'GREEN' ? theme.COLORS.GREEN_LIGHT
-    : type === 'RED' ? theme.COLORS.RED_LIGHT
+    type === 'PRIMARY' ? theme.COLORS.GREEN_LIGHT
+    : type === 'SECONDARY' ? theme.COLORS.RED_LIGHT
     : theme.COLORS.GRAY_6
   };
 `

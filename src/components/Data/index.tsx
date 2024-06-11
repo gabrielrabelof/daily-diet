@@ -9,7 +9,7 @@ type Props = {
   type?: DataTypeStyleProps
 }
 
-export function Data({ title, subtitle, halfWidth = false, type = 'STANDART' }: Props) {
+export function Data({ title, subtitle, halfWidth = false, type = 'DEFAULT' }: Props) {
   return (
     <Container
       halfWidth={halfWidth}
