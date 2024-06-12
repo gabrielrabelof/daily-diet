@@ -1,14 +1,23 @@
-import { Button } from "@components/Button";
+import { useNavigation } from "@react-navigation/native";
+
 import { FeedbackTypeStyleProps, Container, Title, Description, Status, Illustration } from "./styles";
 
 import positiveIllustration from "@assets/positive-illustration.png"
 import negativeIllustration from "@assets/negative-illustration.png"
 
+import { Button } from "@components/Button";
+
 type Props = {
-  type: FeedbackTypeStyleProps
+  type?: FeedbackTypeStyleProps
 }
 
-export function Feedback({ type }: Props) {
+export function Feedback({ type = 'POSITIVE' }: Props) {
+  const navigation = useNavigation()
+
+  function handleHome() {
+    navigation.navigate('home')
+  }
+
   return (
     <Container>
       {
@@ -45,6 +54,7 @@ export function Feedback({ type }: Props) {
       <Button
         title="Go to the homepage"
         halfWidth
+        onPress={() => handleHome()}
       />
     </Container>
   )

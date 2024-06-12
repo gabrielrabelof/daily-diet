@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 import { 
   RadioButtonTypeStyleProps,
@@ -20,6 +21,16 @@ export function Creation() {
   const [description, setDescription] = useState("")
   const [isDiet, setIsDiet] = useState<RadioButtonTypeStyleProps>("STANDART")
   const [isNotDiet, setIsNotDiet] = useState<RadioButtonTypeStyleProps>("STANDART")
+
+  const navigation = useNavigation()
+
+  function handleGoBack() {
+    navigation.navigate('home')
+  }
+
+  function handleFeedback() {
+    navigation.navigate('feedback')
+  }
 
   return (
     <Section
@@ -84,6 +95,7 @@ export function Creation() {
       <Footer>
         <Button 
           title="Register meal"
+          onPress={() => handleFeedback()}
         />
       </Footer>
     </Section>

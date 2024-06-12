@@ -1,8 +1,10 @@
+import { SafeAreaView } from "react-native-safe-area-context";
+
 import styled, { css } from "styled-components/native";
 
-export const Container = styled.View`
+export const Container = styled(SafeAreaView)`
   flex: 1;
-  padding: 24px;
+  padding: 24px 24px 8px 24px;
 
   background-color: ${({theme}) => theme.COLORS.GRAY_7};
 `
@@ -61,7 +63,7 @@ export const ListTitle = styled.Text`
 `
 
 export const Date = styled.Text`
-  margin-top: 32px;
+  margin-top: 18px;
   
   ${({theme}) => css`
     font-size: ${theme.FONT_SIZE.LG}px;

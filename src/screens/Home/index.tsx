@@ -1,6 +1,8 @@
 import { FlatList } from "react-native"
 import { ArrowUpRight, Plus } from "phosphor-react-native"
 
+import { useNavigation } from "@react-navigation/native"
+
 import { 
   Container, 
   Header, 
@@ -53,6 +55,20 @@ export function Home() {
     },
   ]
 
+  const navigation = useNavigation()
+
+  function handleStatistics() {
+    navigation.navigate('statistics')
+  }
+
+  function handleCreation() {
+    navigation.navigate('creation')
+  }
+
+  function handleMeal() {
+    navigation.navigate('meal')
+  }
+
   return (
     <Container>
       <Header>
@@ -74,6 +90,7 @@ export function Home() {
         <IconWrapper>
           <ButtonIcon 
             icon={ <ArrowUpRight /> } 
+            onPress={() => handleStatistics()}
           />
         </IconWrapper>
       </Percent>
@@ -85,6 +102,7 @@ export function Home() {
       <Button
         title="New meal"
         icon={ <Plus /> }
+        onPress={() => handleCreation()}
       />
 
       <FlatList
@@ -100,11 +118,13 @@ export function Home() {
                 time={item.meals.time[index]}
                 name={mealName}
                 status={item.meals.status[index]}
+                onPress={() => handleMeal()}
               />
             ))}
           </>
         )}
         showsVerticalScrollIndicator={false}
+        style={{marginTop: 12}}
       />
       
     </Container>

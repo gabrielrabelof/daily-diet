@@ -1,17 +1,18 @@
 import { ReactNode, cloneElement } from "react";
+import { TouchableOpacityProps } from "react-native";
 
 import { useTheme } from "styled-components";
 
 import { ButtonTypeStyleProps, Container, IconWrapper, Title } from "./styles";
 
-type Props = {
+type Props = TouchableOpacityProps & {
   title: string,
   type?: ButtonTypeStyleProps
   icon?: ReactNode,
   halfWidth?: boolean
 }
 
-export function Button({ type = 'PRIMARY', icon, title, halfWidth }: Props) {
+export function Button({ type = 'PRIMARY', icon, title, halfWidth, ...rest }: Props) {
   const { COLORS } = useTheme()
 
   const styledIcon = icon
@@ -26,6 +27,7 @@ export function Button({ type = 'PRIMARY', icon, title, halfWidth }: Props) {
       activeOpacity={0.7}
       type={type}
       halfWidth={halfWidth}
+      {...rest}
     >
       {
         icon && (

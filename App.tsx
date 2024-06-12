@@ -5,11 +5,7 @@ import { ThemeProvider } from "styled-components/native"
 
 import theme from "src/theme"
 
-import { Home } from "@screens/Home"
-import { Statistics } from "@screens/Statistics"
-import { Creation } from "@screens/Creation"
-import { Feedback } from "@screens/Feedback"
-import { Meal } from "@screens/Meal"
+import { Route } from "src/routes"
 
 import { Loading } from "@components/Loading"
 
@@ -30,7 +26,7 @@ export default function App() {
         translucent
       />
       
-      <Meal />
+      <Route />
     </ThemeProvider>
   )
 }

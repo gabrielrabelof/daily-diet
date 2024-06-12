@@ -1,3 +1,5 @@
+import { SafeAreaView } from "react-native-safe-area-context";
+
 import { ArrowLeft } from "phosphor-react-native";
 
 import styled, { css } from "styled-components/native";
@@ -8,14 +10,18 @@ type Props = {
   style?: HeaderStyleProps
 }
 
-export const Container = styled.View`
+export const Container = styled(SafeAreaView) <Props>`
   flex: 1;
 
-  background-color: ${({theme}) => theme.COLORS.GRAY_5};
+  background-color: ${({theme, style}) => 
+    style === 'PRIMARY' ? theme.COLORS.GREEN_LIGHT
+    : style === 'SECONDARY' ? theme.COLORS.RED_LIGHT
+    : theme.COLORS.GRAY_5
+  };
 `
 
 export const Header = styled.View <Props>`
-  flex: 0.15;
+  flex: 0.1;
   
   align-items: center;
   justify-content: center;
@@ -47,7 +53,7 @@ export const Title = styled.Text`
 `
 
 export const Content = styled.View`
-  flex: 0.85;
+  flex: 0.9;
   padding: 24px;
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;

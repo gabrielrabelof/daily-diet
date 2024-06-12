@@ -1,3 +1,5 @@
+import { useNavigation } from "@react-navigation/native";
+
 import { PencilSimpleLine, Trash } from "phosphor-react-native";
 
 import { Name, Description, DateTime, Status, StatusIcon, StatusText, Footer } from "./styles";
@@ -6,6 +8,12 @@ import { Section } from "@components/Section";
 import { Button } from "@components/Button";
 
 export function Meal() {
+  const navigation = useNavigation()
+
+  function handleCreation() {
+    navigation.navigate('creation')
+  }
+
   return (
     <Section
       headerStyle="PRIMARY"
@@ -40,6 +48,7 @@ export function Meal() {
         <Button 
           icon={ <PencilSimpleLine /> }
           title="Edit meal"
+          onPress={() => handleCreation()}
         />
         <Button 
           icon={ <Trash /> }

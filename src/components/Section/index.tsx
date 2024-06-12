@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 import { HeaderStyleProps, Container, Header, ButtonIcon, HeaderIcon, Title, Content } from "./styles";
 
@@ -9,10 +10,18 @@ type Props = {
 }
 
 export function Section({ headerStyle = 'DEFAULT', title, children }: Props) {
+  const navigation = useNavigation()
+
+  function handleGoBack() {
+    navigation.goBack()
+  }
+
   return (
-    <Container>
+    <Container style={headerStyle}>
       <Header style={headerStyle}>
-        <ButtonIcon>
+        <ButtonIcon
+          onPress={() => handleGoBack()}
+        >
           <HeaderIcon />
         </ButtonIcon>
 

@@ -1,6 +1,8 @@
+import { SafeAreaView } from "react-native-safe-area-context";
+
 import styled, { css } from "styled-components/native";
 
-export const Container = styled.View`
+export const Container = styled(SafeAreaView)`
   flex: 1;
 
   background-color: ${({theme}) => theme.COLORS.GREEN_LIGHT};
@@ -13,7 +15,7 @@ export const Header = styled.View`
 `
 
 export const IconWrapper = styled.View`
-  top: 32px;
+  top: 18px;
   left: 24px;
   
   position: absolute;
