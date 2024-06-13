@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
 import { PencilSimpleLine, Trash } from "phosphor-react-native";
@@ -6,9 +7,20 @@ import { Name, Description, DateTime, Status, StatusIcon, StatusText, Footer } f
 
 import { Section } from "@components/Section";
 import { Button } from "@components/Button";
+import { Modal } from "@components/Modal";
 
 export function Meal() {
+  const [modalVisible, setModalVisible] = useState(false);
+
   const navigation = useNavigation()
+
+  function showModal() {
+    setModalVisible(true);
+  }
+
+  function closeModal() {
+    setModalVisible(false);
+  }
 
   function handleCreation() {
     navigation.navigate('creation')
@@ -54,8 +66,15 @@ export function Meal() {
           icon={ <Trash /> }
           title="Delete meal"
           type="SECONDARY"
+          onPress={showModal}
         />
       </Footer>
+
+      <Modal
+        message="Do you really want to delete the meal record?"
+        visible={modalVisible}
+        onClose={closeModal}
+      />
     </Section>
   )
 }
