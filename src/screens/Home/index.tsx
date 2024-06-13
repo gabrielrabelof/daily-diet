@@ -1,7 +1,8 @@
+import { useState } from "react"
 import { FlatList } from "react-native"
-import { ArrowUpRight, Plus } from "phosphor-react-native"
-
 import { useNavigation } from "@react-navigation/native"
+
+import { ArrowUpRight, Plus } from "phosphor-react-native"
 
 import { 
   Container, 
@@ -21,39 +22,47 @@ import { Highlight } from "@components/Highlight"
 import { ButtonIcon } from "@components/ButtonIcon"
 import { Button } from "@components/Button"
 import { MealCard } from "@components/MealCard"
+import { ListEmpty } from "@components/ListEmpty"
+
+interface Meals {
+  id: number[];
+  name: string[];
+  description: string[];
+  time: string[];
+  status: boolean[];
+}
+
+interface DailyMeal {
+  id: number;
+  date: string;
+  meals: Meals;
+}
 
 export function Home() {
-  const dailyMeals = [
-    { 
-      date: '04.06.24', 
+  const [dailyMeals, setDailyMeals] = useState<DailyMeal[]>([
+    {
+      id: 1, 
+      date: '13.06.24', 
       meals: {
-        name: ['Cheese Burguer', 'Salad', 'Meat', 'Pie'],
-        description: ['A delicious burguer.', 'A delicious salad.', 'A delicious meat.', 'A delicious pie.'],
-        time: ['08:00','12:00', '16:00', '22:00'],
-        status: [false, true, true, false]
+        id: [1],
+        name: ['Hamburguer'],
+        description: ['A delicious Hamburguer.'],
+        time: ['08:00'],
+        status: [false]
       }
     },
-
-    { 
-      date: '05.06.24', 
+    {
+      id: 2, 
+      date: '14.06.24', 
       meals: {
-        name: ['Cheese Burguer', 'Salad', 'Meat', 'Pie'],
-        description: ['A delicious burguer.', 'A delicious salad.', 'A delicious meat.', 'A delicious pie.'],
-        time: ['08:00','12:00', '16:00', '22:00'],
-        status: [false, true, true, false]
+        id: [1],
+        name: ['Salad'],
+        description: ['A delicious Salad.'],
+        time: ['08:00'],
+        status: [true]
       }
-    },
-
-    { 
-      date: '06.06.24', 
-      meals: {
-        name: ['Cheese Burguer', 'Salad', 'Meat', 'Pie'],
-        description: ['A delicious burguer.', 'A delicious salad.', 'A delicious meat.', 'A delicious pie.'],
-        time: ['08:00','12:00', '16:00', '22:00'],
-        status: [false, true, true, false]
-      }
-    },
-  ]
+    }    
+  ])
 
   const navigation = useNavigation()
 
@@ -81,19 +90,25 @@ export function Home() {
         </Photo>
       </Header>
 
-      <Percent>
-        <Highlight
-          title="90,86%"
-          subtitle="of meals within the diet"
-        />
+      {
+        dailyMeals.length !== 0 ?
 
-        <IconWrapper>
-          <ButtonIcon 
-            icon={ <ArrowUpRight /> } 
-            onPress={() => handleStatistics()}
+        <Percent>
+          <Highlight
+            title="90,86%"
+            subtitle="of meals within the diet"
           />
-        </IconWrapper>
-      </Percent>
+
+          <IconWrapper>
+            <ButtonIcon 
+              icon={ <ArrowUpRight /> } 
+              onPress={() => handleStatistics()}
+            />
+          </IconWrapper>
+        </Percent>
+        
+        : null
+      }
 
       <ListTitle>
         Meals
@@ -124,6 +139,12 @@ export function Home() {
           </>
         )}
         showsVerticalScrollIndicator={false}
+        contentContainerStyle={dailyMeals.length === 0 && { flex: 1 }}
+        ListEmptyComponent={
+          <ListEmpty
+            message="You don't have any meals recorded yet."
+          />
+        }
         style={{marginTop: 12}}
       />
       

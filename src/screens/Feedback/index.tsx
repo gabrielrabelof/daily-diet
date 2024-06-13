@@ -1,18 +1,21 @@
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
-import { FeedbackTypeStyleProps, Container, Title, Description, Status, Illustration } from "./styles";
+import { Container, Title, Description, Status, Illustration } from "./styles";
 
 import positiveIllustration from "@assets/positive-illustration.png"
 import negativeIllustration from "@assets/negative-illustration.png"
 
 import { Button } from "@components/Button";
 
-type Props = {
-  type?: FeedbackTypeStyleProps
+type RouteParams = {
+  status: boolean
 }
 
-export function Feedback({ type = 'POSITIVE' }: Props) {
+export function Feedback() {
   const navigation = useNavigation()
+
+  const route = useRoute()
+  const { status } = route.params as RouteParams
 
   function handleHome() {
     navigation.navigate('home')
@@ -21,9 +24,9 @@ export function Feedback({ type = 'POSITIVE' }: Props) {
   return (
     <Container>
       {
-        type === 'POSITIVE' ? 
+        status === true ? 
           <>
-            <Title type={type}>
+            <Title type={status}>
               Keep it Up!
             </Title>
 
@@ -37,7 +40,7 @@ export function Feedback({ type = 'POSITIVE' }: Props) {
           </>
         :
           <>
-            <Title type={type}>
+            <Title type={status}>
               Too bad!
             </Title>
 

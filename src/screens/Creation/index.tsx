@@ -2,9 +2,9 @@ import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
 import { 
-  RadioButtonTypeStyleProps,
   FormWrapper, 
-  RadioButton,
+  RadioButtonPrimary,
+  RadioButtonSecondary,
   TextButton, 
   StatusIcon,
   Footer
@@ -19,17 +19,19 @@ import { Section } from "@components/Section";
 export function Creation() {
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
-  const [isDiet, setIsDiet] = useState<RadioButtonTypeStyleProps>("STANDART")
-  const [isNotDiet, setIsNotDiet] = useState<RadioButtonTypeStyleProps>("STANDART")
+  const [isDiet, setIsDiet] = useState(false)
+  const [isNotDiet, setIsNotDiet] = useState(false)
 
   const navigation = useNavigation()
 
-  function handleGoBack() {
-    navigation.navigate('home')
-  }
-
   function handleFeedback() {
-    navigation.navigate('feedback')
+    if (isDiet === true) {
+      navigation.navigate('feedback', { status: true });
+    } else if (isNotDiet === true) {
+      navigation.navigate('feedback', { status: false });
+    } else {
+      return console.log("Status is not defined");
+    }
   }
 
   return (
@@ -62,9 +64,9 @@ export function Creation() {
       
       <Label label="Is it within the diet?"/>
       <FormWrapper>
-        <RadioButton
+        <RadioButtonPrimary
           activeOpacity={0.8}
-          onPress={() => [setIsDiet("PRIMARY"), setIsNotDiet("STANDART")]}
+          onPress={() => [setIsDiet(true), setIsNotDiet(false)]}
           type={isDiet}
         >
           <StatusIcon 
@@ -75,11 +77,11 @@ export function Creation() {
           <TextButton>
             Yes
           </TextButton>
-        </RadioButton>
+        </RadioButtonPrimary>
 
-        <RadioButton
+        <RadioButtonSecondary
           activeOpacity={0.8}
-          onPress={() => [setIsNotDiet("SECONDARY"), setIsDiet("STANDART")]}
+          onPress={() => [setIsNotDiet(true), setIsDiet(false)]}
           type={isNotDiet}
         >
           <StatusIcon 
@@ -89,7 +91,7 @@ export function Creation() {
           <TextButton>
             No
           </TextButton>
-        </RadioButton>
+        </RadioButtonSecondary>
       </FormWrapper>
 
       <Footer>

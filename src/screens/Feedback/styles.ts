@@ -1,9 +1,7 @@
 import styled, { css } from "styled-components/native";
 
-export type FeedbackTypeStyleProps = 'POSITIVE' | 'NEGATIVE'
-
 type Props = {
-  type: FeedbackTypeStyleProps
+  type: boolean
 }
 
 export const Container = styled.View`
@@ -20,7 +18,7 @@ export const Title = styled.Text <Props>`
   ${({theme, type}) => css`
     font-size: ${theme.FONT_SIZE.XXL}px;
     font-family: ${theme.FONT_FAMILY.BOLD};
-    color: ${type === 'POSITIVE' ? theme.COLORS.GREEN_DARK : theme.COLORS.RED_DARK};
+    color: ${type === true ? theme.COLORS.GREEN_DARK : theme.COLORS.RED_DARK};
   `}
 
   line-height: 64px;

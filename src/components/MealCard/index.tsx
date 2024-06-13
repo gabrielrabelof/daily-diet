@@ -5,10 +5,10 @@ import { Container, Time, VerticalLine, Dish, Status } from "./styles";
 type Props = TouchableOpacityProps & {
   time: string,
   name: string,
-  status?: boolean
+  status: boolean
 }
 
-export function MealCard({ time, name, status = true, ...rest }: Props) {
+export function MealCard({ time, name, status, ...rest }: Props) {
   return (
     <Container 
       activeOpacity={0.5}

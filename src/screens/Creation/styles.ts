@@ -2,11 +2,9 @@ import { Circle } from "phosphor-react-native";
 
 import styled, { css } from "styled-components/native";
 
-export type RadioButtonTypeStyleProps = 'STANDART' | 'PRIMARY' | 'SECONDARY'
-
 type Props = {
   isDiet?: boolean,
-  type?: RadioButtonTypeStyleProps
+  type?: boolean
 }
 
 export const FormWrapper = styled.View`
@@ -16,7 +14,7 @@ export const FormWrapper = styled.View`
   justify-content: space-between;
 `
 
-export const RadioButton = styled.TouchableOpacity <Props>`
+export const RadioButtonPrimary = styled.TouchableOpacity <Props>`
   width: 48%;
   height: 50px;
   border: 1px solid;
@@ -28,13 +26,32 @@ export const RadioButton = styled.TouchableOpacity <Props>`
   flex-direction: row;
 
   background-color: ${({theme, type}) => 
-    type === 'PRIMARY' ? theme.COLORS.GREEN_LIGHT
-    : type === 'SECONDARY' ? theme.COLORS.RED_LIGHT 
+    type === true ? theme.COLORS.GREEN_LIGHT
     : theme.COLORS.GRAY_6
   };
   border-color: ${({theme, type}) => 
-    type === 'PRIMARY' ? theme.COLORS.GREEN_DARK
-    : type === 'SECONDARY' ? theme.COLORS.RED_DARK 
+    type === true ? theme.COLORS.GREEN_DARK
+    : theme.COLORS.GRAY_6
+  };
+`
+
+export const RadioButtonSecondary = styled.TouchableOpacity <Props>`
+  width: 48%;
+  height: 50px;
+  border: 1px solid;
+  border-radius: 6px;
+  margin-top: 8px;
+
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+
+  background-color: ${({theme, type}) => 
+    type === true ? theme.COLORS.RED_LIGHT
+    : theme.COLORS.GRAY_6
+  };
+  border-color: ${({theme, type}) => 
+    type === true ? theme.COLORS.RED_DARK
     : theme.COLORS.GRAY_6
   };
 `

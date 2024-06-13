@@ -52,14 +52,14 @@ export function Statistics() {
 
           <DataWrapper>
             <Data 
-              title="22"
+              title="99"
               subtitle="Meals within the diet"
               halfWidth
               type="PRIMARY"
             />
 
             <Data 
-              title="109"
+              title="10"
               subtitle="Meals outside the diet"
               halfWidth
               type="SECONDARY"

@@ -40,7 +40,7 @@ export const Percent = styled.View`
   width: 100%;
   height: 18%;
   border-radius: 8px;
-  margin: 32px 0;
+  margin-top: 32px;
 
   background-color: ${({theme}) => theme.COLORS.GREEN_LIGHT};
 `
@@ -53,7 +53,7 @@ export const IconWrapper = styled.View`
 `
 
 export const ListTitle = styled.Text`
-  margin-bottom: 10px;
+  margin: 32px 0 10px 0;
   
   ${({theme}) => css`
     font-size: ${theme.FONT_SIZE.LG}px;
