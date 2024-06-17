@@ -1,8 +1,8 @@
-import { useState, useCallback } from "react"
-import { FlatList } from "react-native"
-import { useNavigation, useFocusEffect } from "@react-navigation/native"
+import { useState, useCallback } from "react";
+import { FlatList } from "react-native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 
-import { ArrowUpRight, Plus } from "phosphor-react-native"
+import { ArrowUpRight, Plus } from "phosphor-react-native";
 
 import { 
   Container, 
@@ -14,26 +14,26 @@ import {
   ListTitle, 
   Date, 
   IconWrapper
-} from "./styles"
+} from "./styles";
 
-import logo from "../../assets/logo.png"
+import logo from "../../assets/logo.png";
 
-import { mealsGetAll } from "@storage/meal/mealsGetAll"
-import { groupMealsByDate } from "@storage/meal/groupMealsByDate"
+import { groupMealsByDate } from "@storage/meal/groupMealsByDate";
 
-import { Highlight } from "@components/Highlight"
-import { ButtonIcon } from "@components/ButtonIcon"
-import { Button } from "@components/Button"
-import { MealCard } from "@components/MealCard"
-import { ListEmpty } from "@components/ListEmpty"
+import { Highlight } from "@components/Highlight";
+import { ButtonIcon } from "@components/ButtonIcon";
+import { Button } from "@components/Button";
+import { MealCard } from "@components/MealCard";
+import { ListEmpty } from "@components/ListEmpty";
 
 export function Home() {
-  const [groupedMeals, setGroupedMeals] = useState<TransformedMeal[]>([]);
+  const [groupedMeals, setGroupedMeals] = useState<TransformedMeal[]>([])
+  const [percent, setPercent] = useState<number>(0)
 
   const navigation = useNavigation()
 
   function handleStatistics() {
-    navigation.navigate('statistics')
+    navigation.navigate('statistics', { percent })
   }
 
   function handleCreation() {
@@ -51,12 +51,25 @@ export function Home() {
     }))
   }
 
+  function calculatePercent(groupedMeals: TransformedMeal[]) {
+    let totalMeals = 0
+    let mealsWithinDiet = 0
+
+    groupedMeals.forEach(group => {
+      totalMeals += group.meals.length
+      mealsWithinDiet += group.meals.filter(meal => meal.status === true).length
+    })
+
+    const percent = totalMeals > 0 ? (mealsWithinDiet / totalMeals) * 100 : 0
+    setPercent(percent)
+  }
+
   async function fetchMeals() {
     try {
       const data = await groupMealsByDate()
       const transformed = transformGroupedMeals(data)
       setGroupedMeals(transformed)
-
+      calculatePercent(transformed)
     } catch (error) {
       console.log(error)
     }
@@ -83,15 +96,16 @@ export function Home() {
       {
         groupedMeals.length !== 0 ?
 
-        <Percent>
+        <Percent type={percent >= 50 ? 'PRIMARY' : 'SECONDARY'}>
           <Highlight
-            title="90,86%"
+            title={`${percent.toFixed(2)}%`}
             subtitle="of meals within the diet"
           />
 
           <IconWrapper>
             <ButtonIcon 
               icon={ <ArrowUpRight /> } 
+              type={percent >= 50 ? 'PRIMARY' : 'SECONDARY'}
               onPress={() => handleStatistics()}
             />
           </IconWrapper>
@@ -136,5 +150,5 @@ export function Home() {
       />
       
     </Container>
-  )
+  );
 }

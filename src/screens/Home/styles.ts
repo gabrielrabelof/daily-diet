@@ -2,6 +2,12 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import styled, { css } from "styled-components/native";
 
+export type PercentTypeStyleProps = 'PRIMARY' | 'SECONDARY'
+
+type Props = {
+  type: PercentTypeStyleProps
+}
+
 export const Container = styled(SafeAreaView)`
   flex: 1;
   padding: 24px 24px 8px 24px;
@@ -36,13 +42,13 @@ export const UserPicture = styled.Image`
   resize: cover;
 `
 
-export const Percent = styled.View`
+export const Percent = styled.View <Props>`
   width: 100%;
   height: 18%;
   border-radius: 8px;
   margin-top: 32px;
 
-  background-color: ${({theme}) => theme.COLORS.GREEN_LIGHT};
+  background-color: ${({theme, type}) => type === 'PRIMARY' ? theme.COLORS.GREEN_LIGHT : theme.COLORS.RED_LIGHT};
 `
 
 export const IconWrapper = styled.View`

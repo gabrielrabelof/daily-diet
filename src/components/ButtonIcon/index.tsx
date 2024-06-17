@@ -5,17 +5,20 @@ import { useTheme } from "styled-components/native";
 
 import { Container } from "./styles";
 
+export type ButtonTypeStyleProps = 'PRIMARY' | 'SECONDARY'
+
 type Props = TouchableOpacityProps & {
   icon?: ReactNode
+  type?: ButtonTypeStyleProps
 }
 
-export function ButtonIcon({ icon, ...rest }: Props) {
+export function ButtonIcon({ icon, type = 'PRIMARY', ...rest }: Props) {
   const { COLORS } = useTheme()
 
   const styledIcon = icon
     ? cloneElement(icon as React.ReactElement, {
         size: 24,
-        color: COLORS.GREEN_DARK,
+        color: type === 'PRIMARY' ? COLORS.GREEN_DARK : COLORS.RED_DARK,
       })
     : null;
 

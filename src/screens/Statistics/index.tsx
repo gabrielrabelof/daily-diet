@@ -1,4 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 import { ArrowLeft } from "phosphor-react-native";
 
@@ -9,25 +9,33 @@ import { Highlight } from "@components/Highlight";
 import { Data } from "@components/Data";
 import { ScrollView } from "react-native";
 
+type RouteParams = {
+  percent: number
+}
+
 export function Statistics() {
   const navigation = useNavigation()
+
+  const route = useRoute()
+  const { percent } = route.params as RouteParams
 
   function handleGoBack() {
     navigation.navigate('home')
   }
 
   return (
-    <Container>
-      <Header>
+    <Container type={percent >= 50 ? 'PRIMARY' : 'SECONDARY'}>
+      <Header type={percent >= 50 ? 'PRIMARY' : 'SECONDARY'}>
         <IconWrapper>
           <ButtonIcon 
             icon={<ArrowLeft />}
+            type={percent >= 50 ? 'PRIMARY' : 'SECONDARY'}
             onPress={() => handleGoBack()}
           />
         </IconWrapper>
 
         <Highlight
-          title="90,86%"
+          title={`${percent.toFixed(2)}%`}
           subtitle="of meals within the diet"
         />
       </Header>
