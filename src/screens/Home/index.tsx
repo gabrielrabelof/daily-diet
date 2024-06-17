@@ -1,6 +1,6 @@
-import { useState } from "react"
+import { useState, useCallback } from "react"
 import { FlatList } from "react-native"
-import { useNavigation } from "@react-navigation/native"
+import { useNavigation, useFocusEffect } from "@react-navigation/native"
 
 import { ArrowUpRight, Plus } from "phosphor-react-native"
 
@@ -18,51 +18,17 @@ import {
 
 import logo from "../../assets/logo.png"
 
+import { mealsGetAll } from "@storage/meal/mealsGetAll"
+import { groupMealsByDate } from "@storage/meal/groupMealsByDate"
+
 import { Highlight } from "@components/Highlight"
 import { ButtonIcon } from "@components/ButtonIcon"
 import { Button } from "@components/Button"
 import { MealCard } from "@components/MealCard"
 import { ListEmpty } from "@components/ListEmpty"
 
-interface Meals {
-  id: number[];
-  name: string[];
-  description: string[];
-  time: string[];
-  status: boolean[];
-}
-
-interface DailyMeal {
-  id: number;
-  date: string;
-  meals: Meals;
-}
-
 export function Home() {
-  const [dailyMeals, setDailyMeals] = useState<DailyMeal[]>([
-    {
-      id: 1, 
-      date: '13.06.24', 
-      meals: {
-        id: [1],
-        name: ['Hamburguer'],
-        description: ['A delicious Hamburguer.'],
-        time: ['08:00'],
-        status: [false]
-      }
-    },
-    {
-      id: 2, 
-      date: '14.06.24', 
-      meals: {
-        id: [1],
-        name: ['Salad'],
-        description: ['A delicious Salad.'],
-        time: ['08:00'],
-        status: [true]
-      }
-    }    
-  ])
+  const [groupedMeals, setGroupedMeals] = useState<TransformedMeal[]>([]);
 
   const navigation = useNavigation()
 
@@ -71,12 +37,36 @@ export function Home() {
   }
 
   function handleCreation() {
-    navigation.navigate('creation')
+    navigation.navigate('creation', { meal: "" })
   }
 
-  function handleMeal() {
-    navigation.navigate('meal')
+  function handleOpenMeal(meal: Meal) {
+    navigation.navigate('meal', { meal })
   }
+
+  function transformGroupedMeals(groupedMeals: GroupedMeals) {
+    return Object.keys(groupedMeals).map(date => ({
+      date,
+      meals: groupedMeals[date],
+    }))
+  }
+
+  async function fetchMeals() {
+    try {
+      const data = await groupMealsByDate()
+      const transformed = transformGroupedMeals(data)
+      setGroupedMeals(transformed)
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchMeals()
+    }, [])
+  )
 
   return (
     <Container>
@@ -91,7 +81,7 @@ export function Home() {
       </Header>
 
       {
-        dailyMeals.length !== 0 ?
+        groupedMeals.length !== 0 ?
 
         <Percent>
           <Highlight
@@ -121,31 +111,28 @@ export function Home() {
       />
 
       <FlatList
-        data={dailyMeals}
-        keyExtractor={(item, index) => index.toString()}
+        data={groupedMeals}
+        keyExtractor={(item) => item.date}
         renderItem={({ item }) => (
           <>
             <Date>{item.date}</Date>
-            
-            {item.meals.name.map((mealName, index) => (
-              <MealCard 
-                key={index} 
-                time={item.meals.time[index]}
-                name={mealName}
-                status={item.meals.status[index]}
-                onPress={() => handleMeal()}
+
+            {item.meals.map(meal => (
+              <MealCard
+                key={`${item.date}-${meal.id}`}
+                time={meal.time}
+                name={meal.name}
+                status={meal.status}
+                onPress={() => handleOpenMeal(meal)}
               />
             ))}
           </>
         )}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={dailyMeals.length === 0 && { flex: 1 }}
+        contentContainerStyle={groupedMeals.length === 0 ? { flex: 1 } : { paddingVertical: 36, gap: 32 }}
         ListEmptyComponent={
-          <ListEmpty
-            message="You don't have any meals recorded yet."
-          />
+          <ListEmpty message="You don't have any meals recorded yet." />
         }
-        style={{marginTop: 12}}
       />
       
     </Container>

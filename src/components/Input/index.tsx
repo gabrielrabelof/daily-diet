@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import { TextInputProps } from "react-native";
 
 import { Container } from "./styles";
@@ -8,11 +7,10 @@ import { Label } from "@components/Label";
 type Props = TextInputProps & {
   label?: string,
   higher?: boolean,
-  children?: ReactNode
-  value?: string
+  halfWidth?: boolean
 }
 
-export function Input({ label = "", higher = false, children, value = "", ...rest }: Props) {
+export function Input({ label = "", higher = false, halfWidth = false, ...rest }: Props) {
   return (
     <>
       <Label 
@@ -21,12 +19,10 @@ export function Input({ label = "", higher = false, children, value = "", ...res
 
       <Container
         higher={higher}
+        halfWidth={halfWidth}
         textAlignVertical="top"
-        value={value}
         {...rest}
-      >
-        {children}
-      </Container>
+      />
     </>
   )
 }

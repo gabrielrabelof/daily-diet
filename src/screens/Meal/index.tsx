@@ -1,58 +1,78 @@
 import { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 import { PencilSimpleLine, Trash } from "phosphor-react-native";
 
 import { Name, Description, DateTime, Status, StatusIcon, StatusText, Footer } from "./styles";
 
+import { mealRemove } from "@storage/meal/mealRemove";
+
 import { Section } from "@components/Section";
 import { Button } from "@components/Button";
 import { Modal } from "@components/Modal";
 
+type RouteParams = {
+  meal: Meal
+}
+
 export function Meal() {
-  const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false)
 
   const navigation = useNavigation()
 
+  const route = useRoute()
+  const { meal } = route.params as RouteParams
+
   function showModal() {
-    setModalVisible(true);
+    setModalVisible(true)
   }
 
   function closeModal() {
-    setModalVisible(false);
+    setModalVisible(false)
   }
 
-  function handleCreation() {
-    navigation.navigate('creation')
+  function handleEditMeal(meal: Meal) {
+    navigation.navigate('creation', { meal })
+  }
+
+  async function handleMealRemove(meal: Meal) {
+    try {
+      await mealRemove(meal)
+      closeModal()
+      navigation.navigate('home')
+
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
     <Section
-      headerStyle="PRIMARY"
+      headerStyle={meal.status ? "PRIMARY" : "SECONDARY"}
       title="Meal"
     >
       <Name>
-        Sandwich
+        {meal.name}
       </Name>
       <Description>
-        Whole wheat bread sandwich with tuna and lettuce and tomato salad
+        {meal.description}
       </Description>
 
       <DateTime>
         Date and Time
       </DateTime>
       <Description>
-        06/12/2024 at 04:00 PM
+        {meal.date.replace(/\./g, '/')} at {meal.time}
       </Description>
-
+        
       <Status>
         <StatusIcon 
           weight="fill" 
-          isDiet
+          isDiet={meal.status ? true : false}
         />
 
         <StatusText>
-          Within the diet
+          {meal.status ? "within the diet" : "outside the diet"}
         </StatusText>
       </Status>
 
@@ -60,7 +80,7 @@ export function Meal() {
         <Button 
           icon={ <PencilSimpleLine /> }
           title="Edit meal"
-          onPress={() => handleCreation()}
+          onPress={() => handleEditMeal(meal)}
         />
         <Button 
           icon={ <Trash /> }
@@ -74,6 +94,7 @@ export function Meal() {
         message="Do you really want to delete the meal record?"
         visible={modalVisible}
         onClose={closeModal}
+        onRemove={() => handleMealRemove(meal)}
       />
     </Section>
   )

@@ -7,9 +7,14 @@ type Props = {
   type?: boolean
 }
 
-export const FormWrapper = styled.View`
-  gap: 14px;
+export const LabelWrapper = styled.View`
+  margin-right: 37%;
 
+  flex-direction: row;
+  justify-content: space-between;
+`
+
+export const FormWrapper = styled.View`
   flex-direction: row;
   justify-content: space-between;
 `

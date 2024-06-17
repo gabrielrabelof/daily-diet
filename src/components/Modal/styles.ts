@@ -6,7 +6,6 @@ export const Container = styled(Modal)`
 `
 
 export const Touchable = styled(TouchableWithoutFeedback)`
-
 `
 
 export const Overlay = styled.View`

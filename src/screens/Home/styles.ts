@@ -63,8 +63,6 @@ export const ListTitle = styled.Text`
 `
 
 export const Date = styled.Text`
-  margin-top: 18px;
-  
   ${({theme}) => css`
     font-size: ${theme.FONT_SIZE.LG}px;
     font-family: ${theme.FONT_FAMILY.BOLD};

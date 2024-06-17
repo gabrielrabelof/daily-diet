@@ -4,10 +4,11 @@ import styled, { css } from "styled-components/native";
 
 type Props = {
   higher?: boolean
+  halfWidth?: boolean
 }
 
 export const Container = styled(TextInput) <Props>`
-  width: 100%;
+  width: ${({halfWidth}) => (halfWidth ? '48%' : '100%')};
   height: ${({higher}) => (higher ? '120px' : '50px')};
   border: 1px solid ${({theme}) => theme.COLORS.GRAY_5};
   border-radius: 6px;
