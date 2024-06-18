@@ -116,6 +116,7 @@ export function Creation() {
           keyboardType="decimal-pad"
           value={date}
           onChangeText={setDate}
+          maxLength={8}
         />
 
         <Input 

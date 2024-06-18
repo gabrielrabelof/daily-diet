@@ -20,7 +20,7 @@ export function MealCard({ time, name, status, ...rest }: Props) {
 
       <VerticalLine />
 
-      <Dish>
+      <Dish numberOfLines={1}>
         {name}
       </Dish>
 

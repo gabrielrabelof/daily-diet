@@ -1,7 +1,7 @@
 import { TextTypeStyleProps, Container, Subtitle, Title } from "./styles";
 
 type Props = {
-  title: string,
+  title: string | number,
   subtitle: string
   type?: TextTypeStyleProps
 }

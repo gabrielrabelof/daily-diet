@@ -40,6 +40,9 @@ export const Dish = styled.Text`
     font-family: ${theme.FONT_FAMILY.REGULAR};
     color: ${theme.COLORS.GRAY_2};
   `}
+
+  flex: 1;
+  margin-right: 52px; 
 `
 
 export const Status = styled(View) <Props>`

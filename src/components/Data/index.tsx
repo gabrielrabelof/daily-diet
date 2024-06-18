@@ -3,7 +3,7 @@ import { DataTypeStyleProps, Container } from "./styles";
 import { Highlight } from "@components/Highlight";
 
 type Props = {
-  title: string,
+  title: string | number,
   subtitle: string
   halfWidth?: boolean
   type?: DataTypeStyleProps
