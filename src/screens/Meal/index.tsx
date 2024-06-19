@@ -91,6 +91,7 @@ export function Meal() {
       </Footer>
 
       <Modal
+        type="CONFIRMATION"
         message="Do you really want to delete the meal record?"
         visible={modalVisible}
         onClose={closeModal}

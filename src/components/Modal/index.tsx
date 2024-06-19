@@ -1,17 +1,20 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { StatusBar } from "react-native";
 import { useTheme } from "styled-components/native";
 import { Container, Touchable, Overlay, Content, Message, Wrapper } from "./styles";
 import { Button } from "@components/Button";
 
+export type ModalTypeStyleProps = 'ALERT' | 'CONFIRMATION';
+
 type Props = {
-  visible: boolean,
+  type: ModalTypeStyleProps,
+  visible?: boolean,
   message: string,
-  onClose: () => void
-  onRemove: () => void
+  onClose?: () => void,
+  onRemove?: () => void
 }
 
-export function Modal({ visible, message, onClose, onRemove }: Props) {
+export function Modal({ type, visible, message, onClose, onRemove }: Props) {
   const { COLORS } = useTheme()
 
   useEffect(() => {
@@ -38,17 +41,28 @@ export function Modal({ visible, message, onClose, onRemove }: Props) {
               {message}
             </Message>
             <Wrapper>
-              <Button
-                title="Cancel"
-                halfWidth
-                type="SECONDARY"
-                onPress={onClose}
-              />
-              <Button
-                title="Yes, Delete"
-                halfWidth
-                onPress={onRemove}
-              />
+              {type === 'ALERT' ? (
+                <Button
+                  title="OK"
+                  halfWidth
+                  type="PRIMARY"
+                  onPress={onClose}
+                />
+              ) : (
+                <>
+                  <Button
+                    title="Cancel"
+                    halfWidth
+                    type="SECONDARY"
+                    onPress={onClose}
+                  />
+                  <Button
+                    title="Confirm"
+                    halfWidth
+                    onPress={onRemove}
+                  />
+                </>
+              )}
             </Wrapper>
           </Content>
         </Overlay>

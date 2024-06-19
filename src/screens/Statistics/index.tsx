@@ -65,7 +65,7 @@ export function Statistics() {
 
   useEffect(() => {
     fetchMeals()
-  }, [])
+  }, [storage])
 
   return (
     <Container type={percent >= 50 ? 'PRIMARY' : 'SECONDARY'}>

@@ -14,10 +14,13 @@ import {
 import { mealCreate } from "@storage/meal/mealCreate";
 import { mealEdit } from "@storage/meal/mealEdit";
 
+import { AppError } from "@utils/AppError";
+
 import { Label } from "@components/Label";
 import { Input } from "@components/Input";
 import { Button } from "@components/Button";
 import { Section } from "@components/Section";
+import { Modal } from "@components/Modal";
 
 export type screenMode = 'CREATE' | 'EDIT'
 
@@ -33,13 +36,25 @@ export function Creation() {
   const [isDiet, setIsDiet] = useState(false)
   const [isNotDiet, setIsNotDiet] = useState(false)
   const [mode, setMode] = useState<screenMode>('CREATE')
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
 
   const navigation = useNavigation()
 
   const route = useRoute()
   const { meal } = route.params as RouteParams
 
+  function closeModal() {
+    setModalVisible(false);
+  }
+
   async function handleFeedback(mode: screenMode) {
+    if (!name || !date || !time || !isDiet && !isNotDiet) {
+      setModalMessage("Please fill in all the required fields.")
+      setModalVisible(true)
+      return
+    }
+
     const newMeal: Meal = {
       id: Date.now(),  
       name,
@@ -49,16 +64,17 @@ export function Creation() {
       status: isDiet,  
     }
     
-    if (isDiet === true || isNotDiet === true) {
-      try {
-        mode === 'CREATE' ? await mealCreate(newMeal) : await mealEdit(meal, newMeal)
-
-        navigation.navigate('feedback', { status: isDiet })
-      } catch (error) {
-        
+    try {
+      mode === 'CREATE' ? await mealCreate(newMeal) : await mealEdit(meal, newMeal)
+      navigation.navigate('feedback', { status: isDiet })
+    } catch (error) {
+      if (error instanceof AppError) {
+        setModalMessage(`${error.message}`)
+      } else {
+        console.log(error)
+        setModalMessage("Unable to create a new meal.")
       }
-    } else {
-      console.log("Status is not defined")
+      setModalVisible(true)
     }
   }
 
@@ -166,6 +182,13 @@ export function Creation() {
           onPress={() => handleFeedback(mode)}
         />
       </Footer>
+
+      <Modal 
+        type="ALERT"
+        visible={modalVisible}
+        message={modalMessage}
+        onClose={closeModal}
+      />
     </Section>
   )
 }

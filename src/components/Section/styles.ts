@@ -34,9 +34,12 @@ export const Header = styled.View <Props>`
 `
 
 export const ButtonIcon = styled.TouchableOpacity`
+  width: 42px;
+  height: 42px;
   left: 24px;
   
   position: absolute;
+  justify-content: center;
 `
 
 export const HeaderIcon = styled(ArrowLeft).attrs(({theme}) => ({

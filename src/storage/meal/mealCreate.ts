@@ -16,10 +16,10 @@ export async function mealCreate(meal: Meal) {
     )
 
     if (mealAlreadyExists) {
-      throw new AppError("This meal already exists.")
+      throw new AppError("You already have a meal scheduled for this day and time.")
     }
 
-    const updatedMeals = [...storedMeals, meal]
+    const updatedMeals = [meal, ...storedMeals]
     const storage = JSON.stringify(updatedMeals)
 
     await AsyncStorage.setItem(MEAL_COLLECTION, storage)

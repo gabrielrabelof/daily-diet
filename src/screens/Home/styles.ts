@@ -1,3 +1,4 @@
+import { ArrowUpRight } from "phosphor-react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import styled, { css } from "styled-components/native";
@@ -42,7 +43,7 @@ export const UserPicture = styled.Image`
   resize: cover;
 `
 
-export const Percent = styled.View <Props>`
+export const Percent = styled.TouchableOpacity <Props>`
   width: 100%;
   height: 18%;
   border-radius: 8px;
@@ -51,7 +52,11 @@ export const Percent = styled.View <Props>`
   background-color: ${({theme, type}) => type === 'PRIMARY' ? theme.COLORS.GREEN_LIGHT : theme.COLORS.RED_LIGHT};
 `
 
-export const IconWrapper = styled.View`
+export const IconWrapper = styled(ArrowUpRight).attrs(({theme}) => ({
+  size: 24,
+  color: theme.COLORS.GREEN_DARK
+}))`
+
   top: 12px;
   right: 12px;
   
@@ -68,7 +73,7 @@ export const ListTitle = styled.Text`
   `}
 `
 
-export const Date = styled.Text`
+export const MealDate = styled.Text`
   ${({theme}) => css`
     font-size: ${theme.FONT_SIZE.LG}px;
     font-family: ${theme.FONT_FAMILY.BOLD};
